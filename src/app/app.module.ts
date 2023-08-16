@@ -12,6 +12,9 @@ import { PostsComponent } from './pages/posts/posts.component';
 import { ListComponent } from './pages/users/list/list.component';
 import { UserFormComponent } from './pages/users/userForm/userForm.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostsListComponent } from './pages/posts/posts-list/posts-list.component';
+import { PostsFormComponent } from './pages/posts/posts-form/posts-form.component';
+import { UserDialogComponent } from './pages/posts/posts-list/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PostsComponent,
     ListComponent,
     UserFormComponent,
+    PostsListComponent,
+    PostsFormComponent,
+    UserDialogComponent,
   ],
   imports: [
     BrowserModule,
