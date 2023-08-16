@@ -1,0 +1,6 @@
+.form-container {
+  padding: 40px 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

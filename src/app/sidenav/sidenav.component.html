@@ -1,0 +1,28 @@
+<mat-drawer #drawer class="drawer" mode="side">
+  <mat-nav-list>
+    <mat-list-item>
+      <button class="drawer-button" routerLink="users" mat-button>
+        <mat-icon>face</mat-icon> Users
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <button class="drawer-button" routerLink="posts" mat-button>
+        <mat-icon>receipt</mat-icon> Posts
+      </button>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-drawer>
+<mat-drawer-content class="toolbar">
+  <button
+    mat-icon-button
+    (click)="drawer.toggle()"
+    color="white"
+    aria-label="menu"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <href routerLink="">
+    <span>Angular-GoRest</span>
+  </href>
+  <div class="spacer"></div>
+</mat-drawer-content>

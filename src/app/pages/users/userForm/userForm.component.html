@@ -1,0 +1,40 @@
+<div>
+  <form class="form-container" [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        type="email"
+        placeholder="E-mail"
+        formControlName="email"
+        required
+        pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender" required>
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option value="active">Active</mat-option>
+        <mat-option value="inactive">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-button color="accent" (click)="onSubmit()">
+      <mat-icon>save</mat-icon> Save User
+    </button>
+  </form>
+</div>

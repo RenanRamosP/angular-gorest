@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100%;
+  overflow: auto;
+}
+.table {
+  width: 100%;
+}
+.paginator {
+  width: 100%;
+}

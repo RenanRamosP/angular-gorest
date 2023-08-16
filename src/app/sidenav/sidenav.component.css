@@ -1,0 +1,32 @@
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+}
+
+.toolbar span {
+  padding: 0 10px;
+}
+.drawer {
+  position: absolute;
+  top: 60px;
+  background-color: rgb(236, 236, 236);
+}
+
+.drawer-button {
+  padding: 0 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+}
