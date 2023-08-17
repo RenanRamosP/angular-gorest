@@ -1,0 +1,9 @@
+.form-group-field {
+  display: flex;
+  width: 100%;
+  padding: 0 0;
+}
+
+.toggle-container {
+  text-align: end;
+}

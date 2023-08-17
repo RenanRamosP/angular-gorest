@@ -1,1 +1,27 @@
-<p>posts-form works!</p>
+<div>
+  <form class="form-container" [formGroup]="form">
+    <app-automcomplete-user
+      formcontrolname="user_id"
+      (selectedUser)="changedUser($event)"
+    ></app-automcomplete-user>
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Title" formControlName="title" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Content</mat-label>
+      <textarea
+        formControlName="body"
+        matInput
+        required
+        placeholder="Post body content ..."
+      ></textarea>
+    </mat-form-field>
+
+    <button mat-button color="accent" (click)="onSubmit()">
+      <mat-icon>save</mat-icon> Save User
+    </button>
+  </form>
+</div>

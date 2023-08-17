@@ -1,0 +1,34 @@
+<mat-form-field class="form-group-field">
+  <p>Find User</p>
+  <div class="toggle-container">
+    <mat-label>Filter By</mat-label>
+    <mat-button-toggle-group
+      name="queryOptions"
+      [value]="filterBy"
+      (change)="changeFilterBy($event)"
+    >
+      <mat-button-toggle value="name">Name</mat-button-toggle>
+      <mat-button-toggle value="email">E-mail</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <mat-form-field class="form-group-field">
+    <mat-label>User</mat-label>
+    <input
+      type="text"
+      placeholder="Pick a User"
+      aria-label="User"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option.label"
+        (onSelectionChange)="onSelectionChange(option)"
+      >
+        {{ option.label }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-form-field>

@@ -49,4 +49,20 @@ export class UsersService {
       headers: this.headers,
     });
   }
+
+  autocompleteUsers(
+    filter: string,
+    filterBy: 'name' | 'email'
+  ): Observable<User[]> {
+    let params = {};
+    if (filterBy === 'name') {
+      params = { name: filter };
+    } else {
+      params = { email: filter };
+    }
+    return this.http.get<User[]>(`${this.apiURL}`, {
+      params,
+      headers: this.headers,
+    });
+  }
 }

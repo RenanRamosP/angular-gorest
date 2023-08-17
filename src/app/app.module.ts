@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostsListComponent } from './pages/posts/posts-list/posts-list.component';
 import { PostsFormComponent } from './pages/posts/posts-form/posts-form.component';
 import { UserDialogComponent } from './pages/posts/posts-list/user-dialog/user-dialog.component';
+import { AutomcompleteUserComponent } from './components/automcomplete-user/automcomplete-user.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { UserDialogComponent } from './pages/posts/posts-list/user-dialog/user-d
     PostsListComponent,
     PostsFormComponent,
     UserDialogComponent,
+    AutomcompleteUserComponent,
   ],
   imports: [
     BrowserModule,

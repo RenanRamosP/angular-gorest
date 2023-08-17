@@ -27,4 +27,10 @@ export class PostsService {
       headers: this.headers,
     });
   }
+
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(this.apiURL, post, {
+      headers: this.headers,
+    });
+  }
 }
