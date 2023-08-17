@@ -16,6 +16,7 @@ import { PostsListComponent } from './pages/posts/posts-list/posts-list.componen
 import { PostsFormComponent } from './pages/posts/posts-form/posts-form.component';
 import { UserDialogComponent } from './pages/posts/posts-list/user-dialog/user-dialog.component';
 import { AutomcompleteUserComponent } from './components/automcomplete-user/automcomplete-user.component';
+import { DialogEditUserComponent } from './pages/users/list/dialog-edit-user/dialog-edit-user.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AutomcompleteUserComponent } from './components/automcomplete-user/auto
     PostsFormComponent,
     UserDialogComponent,
     AutomcompleteUserComponent,
+    DialogEditUserComponent,
   ],
   imports: [
     BrowserModule,

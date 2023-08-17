@@ -44,8 +44,8 @@ export class UsersService {
     });
   }
 
-  updateUser(user: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiURL}/${user.id}`, user, {
+  updateUser(userId: number, user: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.apiURL}/${userId}`, user, {
       headers: this.headers,
     });
   }

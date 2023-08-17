@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { User } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
+import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-list',
@@ -17,10 +19,24 @@ export class ListComponent implements OnInit {
   pageIndex = 0;
   length = 3000;
 
-  constructor(private userService: UsersService) {
+  constructor(
+    private userService: UsersService,
+    public dialogEditUser: MatDialog
+  ) {
     this.getUsers(1, 10);
   }
+
   ngOnInit(): void {}
+
+  openDialog(user: User): void {
+    const dialogRef = this.dialogEditUser.open(DialogEditUserComponent, {
+      data: user,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
+  }
 
   handlePageEvent(e: PageEvent) {
     this.pageSize = e.pageSize;
