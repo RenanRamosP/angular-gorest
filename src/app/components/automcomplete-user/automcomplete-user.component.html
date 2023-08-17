@@ -1,16 +1,6 @@
 <mat-form-field class="form-group-field">
   <p>Find User</p>
-  <div class="toggle-container">
-    <mat-label>Filter By</mat-label>
-    <mat-button-toggle-group
-      name="queryOptions"
-      [value]="filterBy"
-      (change)="changeFilterBy($event)"
-    >
-      <mat-button-toggle value="name">Name</mat-button-toggle>
-      <mat-button-toggle value="email">E-mail</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
+
   <mat-form-field class="form-group-field">
     <mat-label>User</mat-label>
     <input
@@ -30,5 +20,23 @@
         {{ option.label }}
       </mat-option>
     </mat-autocomplete>
+    <button
+      *ngIf="selectedUser"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="myControl.setValue(''); selectedUser.emit(undefined)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-button-toggle-group
+      name="queryOptions"
+      [value]="filterBy"
+      (change)="changeFilterBy($event)"
+      matSuffix
+    >
+      <mat-button-toggle value="name">Name</mat-button-toggle>
+      <mat-button-toggle value="email">E-mail</mat-button-toggle>
+    </mat-button-toggle-group>
   </mat-form-field>
 </mat-form-field>

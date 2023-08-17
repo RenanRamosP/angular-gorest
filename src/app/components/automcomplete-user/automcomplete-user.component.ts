@@ -15,7 +15,6 @@ type OptionLabel = {
 })
 export class AutomcompleteUserComponent {
   myControl = new FormControl('');
-  options: OptionLabel[] = [];
   filteredOptions: Observable<OptionLabel[]>;
   @Output() selectedUser = new EventEmitter<number>();
 
@@ -44,7 +43,7 @@ export class AutomcompleteUserComponent {
     );
   }
 
-  onSelectionChange(event: OptionLabel) {
-    this.selectedUser.emit(event.id_user);
+  onSelectionChange(event: OptionLabel | undefined) {
+    this.selectedUser.emit(event?.id_user ?? undefined);
   }
 }

@@ -39,4 +39,14 @@ export class ListComponent implements OnInit {
       this.getUsers(this.pageIndex + 1, this.pageSize);
     });
   }
+  changedUser(idUser: number | undefined) {
+    console.log(idUser);
+    if (idUser) {
+      this.userService
+        .getUser(idUser)
+        .subscribe((user) => (this.users = [user]));
+    } else {
+      this.getUsers(this.pageIndex + 1, this.pageSize);
+    }
+  }
 }
