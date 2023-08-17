@@ -4,6 +4,13 @@ import { Observable } from 'rxjs';
 import { Post } from '../models/post';
 import { environment } from 'src/environment/environment';
 
+export type QueryPost = {
+  page: number;
+  pageSize: number;
+  userId?: number;
+  title?: string;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,10 +22,16 @@ export class PostsService {
   );
   constructor(private http: HttpClient) {}
 
-  getPosts(page: number, pageSize: number): Observable<Post[]> {
+  getPosts(query: QueryPost): Observable<Post[]> {
+    const params: any = {
+      page: query.page.toString(),
+      per_page: query.pageSize.toString(),
+    };
+    query.userId && (params.user_id = query.userId.toString());
+    query.title && (params.title = query.title.toString());
     return this.http.get<Post[]>(this.apiURL, {
       headers: this.headers,
-      params: { page: page.toString(), per_page: pageSize.toString() },
+      params,
     });
   }
 

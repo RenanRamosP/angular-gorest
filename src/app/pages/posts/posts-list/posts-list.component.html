@@ -1,4 +1,19 @@
 <div class="wrapper">
+  <app-automcomplete-user
+    (selectedUser)="findByUser($event)"
+  ></app-automcomplete-user>
+  <mat-form-field class="search-title">
+    <mat-label>Title</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="titleFind"
+      (keydown.enter)="findByTitle()"
+    />
+    <button matSuffix mat-icon-button (click)="findByTitle()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
   <table mat-table [dataSource]="posts" class="mat-elevation-z8">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Title</th>

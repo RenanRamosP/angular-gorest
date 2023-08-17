@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Post } from 'src/app/models/post';
-import { PostsService } from 'src/app/services/posts.service';
+import { PostsService, QueryPost } from 'src/app/services/posts.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-posts-list',
@@ -14,6 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class PostsListComponent implements OnInit {
   posts: Post[] = [];
+  selectedUser: number | undefined = undefined;
+
+  titleFind = new FormControl('');
 
   displayedColumns: string[] = ['title', 'body', 'actions'];
 
@@ -27,7 +31,7 @@ export class PostsListComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {
-    this.getPosts(1, 10);
+    this.getPosts({ page: 1, pageSize: 10 });
   }
 
   openDialog(userId: number): void {
@@ -48,17 +52,35 @@ export class PostsListComponent implements OnInit {
   handlePageEvent(e: PageEvent) {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.getPosts(e.pageIndex + 1, e.pageSize);
+    this.getPosts({ page: e.pageIndex + 1, pageSize: e.pageSize });
   }
 
-  getPosts(page: number, pageSize: number): void {
+  getPosts(query: QueryPost): void {
+    const { page, pageSize, title, userId } = query;
     this.postsService
-      .getPosts(page, pageSize)
+      .getPosts({ page, pageSize, title, userId })
       .subscribe((posts) => (this.posts = posts));
   }
   removePost(id: number): void {
     this.postsService.removePost(id).subscribe(() => {
-      this.getPosts(this.pageIndex + 1, this.pageSize);
+      this.getPosts({ page: this.pageIndex + 1, pageSize: this.pageSize });
+    });
+  }
+  findByUser(id: number): void {
+    this.selectedUser = id;
+    this.getPosts({
+      page: 1,
+      pageSize: 10,
+      userId: id,
+      title: this.titleFind.value || undefined,
+    });
+  }
+  findByTitle(): void {
+    this.getPosts({
+      page: 1,
+      pageSize: 10,
+      title: this.titleFind.value || undefined,
+      userId: this.selectedUser,
     });
   }
 }
