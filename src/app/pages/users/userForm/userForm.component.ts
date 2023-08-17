@@ -25,12 +25,7 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(
-      '🚀 ~ file: userForm.component.ts:16 ~ UserFormComponent ~ ngOnInit ~ this.user:',
-      this.user
-    );
     if (this.user) {
-      // do something with the user data
       this.form.patchValue(this.user);
     }
   }

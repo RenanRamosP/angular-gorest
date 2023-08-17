@@ -7,6 +7,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
+import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.component';
 
 @Component({
   selector: 'app-posts-list',
@@ -45,6 +46,18 @@ export class PostsListComponent implements OnInit {
         this._snackBar.open('Error getting User', 'Close');
       }
     );
+  }
+
+  openDialogEdit(data: Post) {
+    const dialogRef = this.dialog.open(EditPostDialogComponent, {
+      data,
+      height: '700px',
+      width: '70vw',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
   }
 
   ngOnInit(): void {}

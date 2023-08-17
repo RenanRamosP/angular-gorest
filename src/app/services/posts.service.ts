@@ -46,4 +46,10 @@ export class PostsService {
       headers: this.headers,
     });
   }
+
+  updatePost(postId: number, post: Partial<Post>): Observable<Post> {
+    return this.http.put<Post>(`${this.apiURL}/${postId}`, post, {
+      headers: this.headers,
+    });
+  }
 }

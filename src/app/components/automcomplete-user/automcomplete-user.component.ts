@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { Observable, debounceTime, map, startWith, switchMap } from 'rxjs';
@@ -13,10 +13,11 @@ type OptionLabel = {
   templateUrl: './automcomplete-user.component.html',
   styleUrls: ['./automcomplete-user.component.css'],
 })
-export class AutomcompleteUserComponent {
+export class AutomcompleteUserComponent implements OnInit {
   myControl = new FormControl('');
   filteredOptions: Observable<OptionLabel[]>;
   @Output() selectedUser = new EventEmitter<number>();
+  @Input() userId: number | undefined;
 
   filterBy: 'name' | 'email' = 'name';
 
@@ -26,6 +27,16 @@ export class AutomcompleteUserComponent {
       debounceTime(200),
       switchMap((value) => this._filter(value || ''))
     );
+  }
+  ngOnInit(): void {
+    if (this.userId) {
+      this.usersService.getUser(this.userId).subscribe(
+        (user) => {
+          this.myControl.setValue(user[this.filterBy]);
+        },
+        (e) => console.log('notify', e)
+      );
+    }
   }
 
   changeFilterBy(event: MatButtonToggleChange) {

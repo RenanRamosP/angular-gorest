@@ -3,6 +3,7 @@
     <app-automcomplete-user
       formcontrolname="user_id"
       (selectedUser)="changedUser($event)"
+      [userId]="post?.user_id"
     ></app-automcomplete-user>
 
     <mat-form-field>
