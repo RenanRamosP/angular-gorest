@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Post } from 'src/app/models/post';
 import { PostsService } from 'src/app/services/posts.service';
 import { EditPostDialogComponent } from '../posts-list/edit-post-dialog/edit-post-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-posts-form',
@@ -15,7 +16,11 @@ export class PostsFormComponent implements OnInit {
   @Input() dialogRef: MatDialogRef<EditPostDialogComponent> | undefined;
 
   form: FormGroup;
-  constructor(private fb: FormBuilder, private postsService: PostsService) {
+  constructor(
+    private fb: FormBuilder,
+    private postsService: PostsService,
+    private _snackBar: MatSnackBar
+  ) {
     this.form = this.fb.group<Partial<Post>>({
       title: undefined,
       body: undefined,
@@ -33,21 +38,35 @@ export class PostsFormComponent implements OnInit {
       const formData = this.form.value;
 
       if (this.post) {
-        this.postsService
-          .updatePost(this.post.id, formData)
-          .subscribe((res) => {
+        this.postsService.updatePost(this.post.id, formData).subscribe(
+          () => {
+            this._snackBar.open('Post updated successfully', 'Close');
             this.dialogRef?.close();
-          });
+          },
+          () => {
+            this.failedPostReq();
+          }
+        );
       } else {
         console.log(formData);
-        this.postsService.createPost(formData).subscribe((res) => {
-          console.log(
-            '🚀 ~ file: userForm.component.ts:26 ~ UserFormComponent ~ this.userService.createUser ~ res:',
-            res
-          );
-        });
+        this.postsService.createPost(formData).subscribe(
+          () => {
+            this._snackBar.open('Post created successfully', 'Close');
+            this.form.reset();
+          },
+          () => {
+            this.failedPostReq(true);
+          }
+        );
       }
     }
+  }
+
+  failedPostReq(isCreate?: boolean) {
+    this._snackBar.open(
+      `Failed to ${isCreate ? 'create' : 'update'} post`,
+      'Close'
+    );
   }
 
   changedUser(idUser: number) {

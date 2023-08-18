@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
 import { DialogEditUserComponent } from '../list/dialog-edit-user/dialog-edit-user.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-form',
@@ -15,7 +16,11 @@ export class UserFormComponent implements OnInit {
   @Input() dialogRef: MatDialogRef<DialogEditUserComponent> | undefined;
 
   form: FormGroup;
-  constructor(private fb: FormBuilder, private userService: UsersService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UsersService,
+    private _snackBar: MatSnackBar
+  ) {
     this.form = this.fb.group<Partial<User>>({
       name: undefined,
       email: undefined,
@@ -30,28 +35,37 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  failedUserReq(isCreate?: boolean) {
+    this._snackBar.open(
+      `Failed to ${isCreate ? 'create' : 'update'} user`,
+      'Close'
+    );
+  }
+
   onSubmit() {
     if (this.form.status === 'VALID') {
       const formData = this.form.value;
-      console.log(
-        '🚀 ~ file: userForm.component.ts:38 ~ UserFormComponent ~ onSubmit ~ formData:',
-        formData
-      );
+
       if (this.user) {
-        this.userService.updateUser(this.user.id, formData).subscribe((res) => {
-          console.log(
-            '🚀 ~ file: userForm.component.ts:49 ~ UserFormComponent ~ .subscribe ~ res:',
-            res
-          );
-          this.dialogRef?.close();
-        });
+        this.userService.updateUser(this.user.id, formData).subscribe(
+          (res) => {
+            this._snackBar.open('User updated successfully', 'Close');
+            this.dialogRef?.close();
+          },
+          () => {
+            this.failedUserReq();
+          }
+        );
       } else {
-        this.userService.createUser(formData).subscribe((res) => {
-          console.log(
-            '🚀 ~ file: userForm.component.ts:26 ~ UserFormComponent ~ this.userService.createUser ~ res:',
-            res
-          );
-        });
+        this.userService.createUser(formData).subscribe(
+          (res) => {
+            this._snackBar.open('User created successfully', 'Close');
+            this.form.reset();
+          },
+          () => {
+            this.failedUserReq(true);
+          }
+        );
       }
     }
   }
